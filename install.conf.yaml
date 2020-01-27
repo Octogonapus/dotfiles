@@ -8,3 +8,6 @@
 - link:
     ~/.zshrc: zshrc.zsh
     ~/.config/Code/User/settings.json: vscode-settings.json
+
+- shell:
+    - git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
