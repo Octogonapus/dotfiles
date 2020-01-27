@@ -6,5 +6,5 @@
 - clean: ['~', '~/.config']
 
 - link:
-    ~/.zshrc: zshrc
+    ~/.zshrc: zshrc.zsh
     ~/.config/Code/User/settings.json: vscode-settings.json
