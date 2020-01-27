@@ -1,0 +1,20 @@
+{
+    "latex-workshop.view.pdf.viewer": "tab",
+    "editor.fontSize": 12,
+    "arduino.disableTestingOpen": true,
+    "arduino.path": "/home/salmon/arduino-1.8.9",
+    "explorer.confirmDragAndDrop": false,
+    "julia.enableTelemetry": true,
+    "latex-workshop.message.update.show": false,
+    "julia.executablePath": "/usr/local/bin/julia",
+    "latex-workshop.chktex.enabled": true,
+    "git.confirmSync": false,
+    "window.zoomLevel": 0,
+    "extensions.ignoreRecommendations": true,
+    "coqtop.binPath": "/usr/bin/",
+    "editor.rulers": [100],
+    "editor.wordWrap": "wordWrapColumn",
+    "explorer.confirmDelete": false,
+    "terminal.integrated.inheritEnv": false,
+    "terminal.integrated.fontFamily": "LiterationMono Nerd Font"
+}
