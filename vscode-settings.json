@@ -17,5 +17,6 @@
     "editor.wordWrapColumn": 100,
     "explorer.confirmDelete": false,
     "terminal.integrated.inheritEnv": false,
-    "terminal.integrated.fontFamily": "LiterationMono Nerd Font"
+    "terminal.integrated.fontFamily": "LiterationMono Nerd Font",
+    "latex-workshop.latex.autoBuild.run": "never"
 }

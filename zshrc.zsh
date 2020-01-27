@@ -73,8 +73,11 @@ plugins=(
   colored-man-pages
   zsh-autosuggestions
   zsh_reload
+  zsh-completions
+  docker
 )
 
+autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
