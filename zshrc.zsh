@@ -181,8 +181,8 @@ then
     POWERLEVEL9K_PROMPT_ON_NEWLINE=true
     #POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
     # https://github.com/bhilburn/powerlevel9k/tree/next#customizing-prompt-segments
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir_writable dir vcs)
-    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time ram)
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator context dir_writable dir vcs)
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs time ram)
 
     # Set 'context' segment colors
     # https://github.com/bhilburn/powerlevel9k/blob/next/segments/context/README.md
@@ -244,5 +244,9 @@ then
 
 fi
 
+# Print this once when the shell opens
+uname -a
+
 source /usr/share/powerlevel9k/powerlevel9k.zsh-theme
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/salmon/.cargo/env

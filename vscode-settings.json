@@ -18,5 +18,5 @@
     "explorer.confirmDelete": false,
     "terminal.integrated.inheritEnv": false,
     "terminal.integrated.fontFamily": "LiterationMono Nerd Font",
-    "latex-workshop.latex.autoBuild.run": "never"
+    "latex-workshop.latex.autoBuild.run": "onFileChange"
 }
