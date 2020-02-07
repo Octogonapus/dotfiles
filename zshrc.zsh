@@ -75,6 +75,7 @@ plugins=(
   zsh_reload
   zsh-completions
   docker
+  git-flow-completion
 )
 
 autoload -U compinit && compinit

@@ -12,3 +12,4 @@
 - shell:
     - git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     - git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    - git clone https://github.com/bobthecow/git-flow-completion ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/git-flow-completion
