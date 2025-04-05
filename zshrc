@@ -197,6 +197,7 @@ gmb() {
 
 # github cli
 alias gprw="gh pr view --web"
+alias grw="gh repo view -w"
 gprl() {
 	echo "$(gh pr view --json url --jq '.url')"
 }
