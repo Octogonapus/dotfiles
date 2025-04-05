@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/salmon/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -167,7 +167,7 @@ export NIXPKGS_ALLOW_UNFREE=1
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 # gvm doesn't play nice with direnv
-[[ -s "/home/salmon/.gvm/scripts/gvm" ]] && source "/home/salmon/.gvm/scripts/gvm"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 GOTRACEBACK=crash
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
