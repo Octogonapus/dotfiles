@@ -30,7 +30,9 @@
     ~/.zprofile: zprofile
     ~/.zshenv: zshenv
     ~/.zshrc: zshrc
-    ~/.julia/config/startup.jl: julia/startup.jl
+    ~/.zshrc_wsl:
+      path: zshrc_wsl
+      if: "[[ `uname -r` == *WSL* ]]"
 
     # omz. the custom directory is ignored so installing stuff into it is okay and requires less config this way
     ~/.oh-my-zsh: ohmyzsh
@@ -40,5 +42,11 @@
     ~/.oh-my-zsh/custom/themes/powerlevel10k: powerlevel10k
     ~/.p10k.zsh: p10k.zsh # p10k uses this path by default
 
+    # julia
+    ~/.julia/config/startup.jl: julia/startup.jl
+
     # wsl
     ~/.agent-bridge.sh: agent-bridge.sh
+
+    # other scripts
+    ~/bin/extract_email_html.sh: extract_email_html.sh

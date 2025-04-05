@@ -322,6 +322,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
 # because I always forget to tear down my docker compose environments
 print_docker_uptime() {
   local now=$(date +%s)
@@ -340,8 +343,8 @@ print_docker_uptime() {
 }
 print_docker_uptime
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# platform-specific
+[[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
 
 # zshrc_local must come last
 source "$HOME/.zshrc_local"
