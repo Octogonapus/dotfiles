@@ -89,6 +89,8 @@ plugins=(
 # eksctl completions and others. must go before compinit!
 fpath=($fpath ~/.zsh/completion)
 
+ulimit -c unlimited
+
 autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
@@ -170,17 +172,12 @@ GOTRACEBACK=crash
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
+# all git stuff
 alias grbc="git rebase --continue"
 alias gmm="git merge $(git_main_branch)"
 alias gmc="git merge --continue"
 alias gfa="git fetch --all --prune --tags --jobs=10"
-alias gd="git diff"
-alias gdh="git diff HEAD^..HEAD"
-alias gdim="git diff-image"
-alias gdsm="git diff --submodule=diff"
-gdm() {
-	git diff "$(git_main_branch)"..HEAD
-}
+
 alias gbl="git blame -w -C -C -C" # ignore whitespace and be smart about moved lines in any commit. slow but helpful
 gfom() {
 	git fetch origin "$(git_main_branch):$(git_main_branch)"
@@ -195,13 +192,16 @@ gmb() {
 	git merge-base HEAD "$(git_main_branch)"
 }
 
-# github cli
-alias gprw="gh pr view --web"
-alias grw="gh repo view -w"
-gprl() {
-	echo "$(gh pr view --json url --jq '.url')"
+# git diff
+alias gd="git diff"
+alias gdh="git diff HEAD^..HEAD"
+alias gdim="git diff-image"
+alias gdsm="git diff --submodule=diff"
+gdm() {
+	git diff "$(git_main_branch)"..HEAD
 }
 
+# git commit
 alias gcan="git commit -v -a --no-edit --amend"
 gfu() {
 	git commit --fixup "$1"
@@ -211,6 +211,13 @@ gfua() {
 }
 gfuh() {
 	git commit -a --fixup HEAD
+}
+
+# github cli
+alias gprw="gh pr view --web"
+alias grw="gh repo view -w"
+gprl() {
+	echo "$(gh pr view --json url --jq '.url')"
 }
 
 git_squash_branch() {
@@ -254,6 +261,9 @@ restart_agent_bridge() {
     source "$HOME/.agent-bridge.sh"
 }
 
+alias dc="docker compose"
+alias dcd="docker compose down"
+
 # >>> juliaup initialize >>>
 
 # !! Contents within this block are managed by juliaup !!
@@ -262,8 +272,6 @@ path=('/home/salmon/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
-
-ulimit -c unlimited
 
 julia_manifest() {
 	local dir=$(pwd)
@@ -277,16 +285,10 @@ julia_manifest() {
 	julia +"$JULIA_VER" "$@"
 }
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
 ls_core_dumps() {
 	local ROOT="/mnt/c/Users/salmon/AppData/Local/Temp/wsl-crashes/"
 	find "$ROOT" -type f -printf '%s %t %p\n'
 }
-
-alias dc="docker compose"
-alias dcd="docker compose down"
 
 bump_pr() {
     local pr="$1"
@@ -320,8 +322,6 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-source "$HOME/.zshrc_local"
-
 # because I always forget to tear down my docker compose environments
 print_docker_uptime() {
   local now=$(date +%s)
@@ -339,3 +339,9 @@ print_docker_uptime() {
   done
 }
 print_docker_uptime
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# zshrc_local must come last
+source "$HOME/.zshrc_local"
