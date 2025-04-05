@@ -1,0 +1,22 @@
+name: "test"
+
+on:
+  push:
+
+jobs:
+  test:
+    permissions:
+      contents: read
+      pull-requests: read
+
+    concurrency:
+      group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
+      cancel-in-progress: true
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install
+        run: ./install

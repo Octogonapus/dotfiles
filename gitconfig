@@ -1,0 +1,88 @@
+[core]
+	editor = code --wait
+	sshCommand = ssh #.exe
+	commentchar = *
+	packedGitLimit = 512m
+	packedGitWindowSize = 512m
+	attributesfile = ~/.gitattributes
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[init]
+	defaultBranch = main
+
+[push]
+	autoSetupRemote = true
+	default = current
+	followTags = true
+
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+
+[rerere]
+	enabled = true
+	autoupdate = true
+
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+
+[checkout]
+	defaultRemote = origin
+
+[pull]
+	default = simple
+	rebase = true
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
+[credential]
+	helper = manager
+
+[user]
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFycim0hhGMuZ3HiMZWNgPO/7DtIILBLJ5ft5iXuqkU1
+	name = Octogonapus
+	email = me@irrational.engineering
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	program = "/mnt/c/Users/salmon/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
+
+[commit]
+	gpgsign = true
+
+[http]
+	postBuffer = 157286400
+
+[pack]
+	deltaCacheSize = 2047m
+	packSizeLimit = 2047m
+	windowMemory = 2047m
+
+[alias]
+	diff-image = "!f() { cd -- \"${GIT_PREFIX:-.}\"; GIT_DIFF_IMAGE_ENABLED=1 git diff \"$@\"; }; f"
+
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+
+[diff "image"]
+	command = /home/salmon/git/git-diff-image/git_diff_image
+
+[safe]
+	directory = /home/salmon/git/bcc
+	directory = /home/salmon/git/bcc/libbpf-tools/blazesym
+	directory = /home/salmon/git/bcc/src/cc/libbpf
+	directory = /home/salmon/git/bcc/libbpf-tools/bpftool

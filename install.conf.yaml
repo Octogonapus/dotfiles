@@ -1,0 +1,40 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ["~"]
+
+- link:
+    # bash. i don't really use it but sometimes you need it
+    ~/.bash_aliases: bash_aliases
+    ~/.bash_profile: bash_profile
+    ~/.bashrc: bashrc
+
+    # gdb
+    ~/.gdbinit: gdbinit
+
+    # git
+    ~/.gitconfig: gitconfig
+    ~/.gitattributes: gitattributes
+
+    # github CLI
+    ~/.config/gh/config.yml:
+      path: gh_config_wsl.yaml
+      if: "[[ `uname -r` == *WSL* ]]"
+
+    # zsh
+    ~/.zprofile: zprofile
+    ~/.zshenv: zshenv
+    ~/.zshrc: zshrc
+    ~/.julia/config/startup.jl: julia/startup.jl
+
+    # omz. the custom directory is ignored so installing stuff into it is okay and requires less config this way
+    ~/.oh-my-zsh: ohmyzsh
+    ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions: zsh-autosuggestions
+    ~/.oh-my-zsh/custom/plugins/zsh-completions: zsh-completions
+    ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting: zsh-syntax-highlighting
+    ~/.oh-my-zsh/custom/themes/powerlevel10k: powerlevel10k
+    ~/.p10k.zsh: p10k.zsh # p10k uses this path by default
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
