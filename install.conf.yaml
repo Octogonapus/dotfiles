@@ -4,6 +4,9 @@
 
 - clean: ["~"]
 
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+
 - link:
     # bash. i don't really use it but sometimes you need it
     ~/.bash_aliases: bash_aliases
@@ -35,6 +38,3 @@
     ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting: zsh-syntax-highlighting
     ~/.oh-my-zsh/custom/themes/powerlevel10k: powerlevel10k
     ~/.p10k.zsh: p10k.zsh # p10k uses this path by default
-
-- shell:
-    - [git submodule update --init --recursive, Installing submodules]
