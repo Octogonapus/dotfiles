@@ -6,6 +6,7 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    - [mkdir -p ~/.julia/config]
 
 - link:
     # bash. i don't really use it but sometimes you need it
