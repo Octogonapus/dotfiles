@@ -217,7 +217,7 @@ gfuh() {
 alias gprw="gh pr view --web"
 alias grw="gh repo view -w"
 gprl() {
-	echo "$(gh pr view --json url --jq '.url')"
+	echo "$(gh pr view --json url --jq .url)"
 }
 
 git_squash_branch() {
