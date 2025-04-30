@@ -264,6 +264,7 @@ restart_agent_bridge() {
 
 alias dc="docker compose"
 alias dcd="docker compose down"
+alias dcl="docker compose logs -f -n 10"
 
 # >>> juliaup initialize >>>
 
