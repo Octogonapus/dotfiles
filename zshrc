@@ -345,6 +345,22 @@ print_docker_uptime() {
 }
 print_docker_uptime
 
+utc() {
+  echo "UTC:   $(date -u -d "@$1")"
+  echo "Local: $(date -d "@$1")"
+}
+
+sutc() {
+  echo "UTC:   $(date -u -d "@$1" +"%F %T")"
+  echo "Local: $(date -d "@$1" +"%F %T")"
+}
+
+alias p="pnpm"
+alias px="pnpx"
+alias pxu="pnpx npm-check -u"
+alias pb="pnpm run build"
+alias pd="pnpm run dev"
+
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
 
