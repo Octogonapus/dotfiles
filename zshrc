@@ -230,6 +230,7 @@ git_squash_branch() {
     git reset $(git merge-base main $(git branch --show-current))
     echo "You were at: $rev"
 }
+
 unalias gb
 gb() {
 	if [ $# -eq 0 ]; then
@@ -241,6 +242,7 @@ gb() {
 		git branch "$@"
 	fi
 }
+compdef _git gb=git-branch
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
