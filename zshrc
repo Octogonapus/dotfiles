@@ -1,3 +1,23 @@
+# Put anything that outputs up here, above the p10k instant prompt to avoid a big warning message that it prints
+
+# because I always forget to tear down my docker compose environments
+print_docker_uptime() {
+  local now=$(date +%s)
+  local yellow='\033[1;33m'
+  local reset='\033[0m'
+
+  docker ps --format '{{.ID}} {{.Names}} {{.RunningFor}}' | while read -r id name running_for; do
+    start_time=$(docker inspect -f '{{.State.StartedAt}}' "$id")
+    start_timestamp=$(date -d "$start_time" +%s)
+    uptime_seconds=$(( now - start_timestamp ))
+
+    if (( uptime_seconds > 28800 )); then
+      echo -e "${yellow}Docker container '$name' (ID: $id) has been up for more than 8 hours${reset}"
+    fi
+  done
+}
+print_docker_uptime
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -328,24 +348,6 @@ esac
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
-# because I always forget to tear down my docker compose environments
-print_docker_uptime() {
-  local now=$(date +%s)
-  local yellow='\033[1;33m'
-  local reset='\033[0m'
-
-  docker ps --format '{{.ID}} {{.Names}} {{.RunningFor}}' | while read -r id name running_for; do
-    start_time=$(docker inspect -f '{{.State.StartedAt}}' "$id")
-    start_timestamp=$(date -d "$start_time" +%s)
-    uptime_seconds=$(( now - start_timestamp ))
-
-    if (( uptime_seconds > 28800 )); then
-      echo -e "${yellow}Docker container '$name' (ID: $id) has been up for more than 8 hours${reset}"
-    fi
-  done
-}
-print_docker_uptime
 
 utc() {
   echo "UTC:   $(date -u -d "@$1")"
