@@ -7,6 +7,10 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - [mkdir -p ~/.julia/config]
+    - [
+        '[[ `uname -r` == *WSL* && ! -e $HOME/.local/bin/code ]] && ln -s /mnt/c/Program\ Files/Microsoft\ VS\ Code/bin/code $HOME/.local/bin/code || true',
+        Link VS Code into WSL,
+      ]
 
 - link:
     # bash. i don't really use it but sometimes you need it
