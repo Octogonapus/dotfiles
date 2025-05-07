@@ -2,7 +2,7 @@
 
 # because I always forget to tear down my docker compose environments
 print_docker_uptime() {
-  if ! command -v docker
+  if ! command -v docker > /dev/null
   then
     return
   fi
@@ -145,7 +145,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias k="kubectl"
-command -v kubectl && source <(kubectl completion zsh)
+command -v kubectl > /dev/null && source <(kubectl completion zsh)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
