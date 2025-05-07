@@ -2,6 +2,11 @@
 
 # because I always forget to tear down my docker compose environments
 print_docker_uptime() {
+  if ! command -v docker
+  then
+    return
+  fi
+
   local now=$(date +%s)
   local yellow='\033[1;33m'
   local reset='\033[0m'
@@ -140,7 +145,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias k="kubectl"
-. <(kubectl completion zsh)
+command -v kubectl && source <(kubectl completion zsh)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -369,4 +374,4 @@ alias pd="pnpm run dev"
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
 
 # zshrc_local must come last
-source "$HOME/.zshrc_local"
+[[ -f "$HOME/.zshrc_local" ]] && source "$HOME/.zshrc_local"

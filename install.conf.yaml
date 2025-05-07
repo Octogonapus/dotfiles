@@ -6,10 +6,15 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    - [mkdir -p ~/bin]
     - [mkdir -p ~/.julia/config]
     - [
         '[[ `uname -r` == *WSL* && ! -e $HOME/.local/bin/code ]] && ln -s /mnt/c/Program\ Files/Microsoft\ VS\ Code/bin/code $HOME/.local/bin/code || true',
         Link VS Code into WSL,
+      ]
+    - [
+        "[[ `uname -r` == *WSL* ]] && mkdir -p $HOME/.1password",
+        Set up 1Password socket directory,
       ]
 
 - link:
