@@ -4,5 +4,5 @@ ENV["JULIA_PKG_USE_CLI_GIT"] = true # needed for WSL2 to work with 1Password SSH
 ENV["JULIA_EDITOR"] = "code --wait"
 ENV["JULIA_PKG_PRECOMPILE_AUTO"] = false
 ENV["MLDATADEVICES_SILENCE_WARN_NO_GPU"] = true
-isfile("local.jl") && include("local.jl")
+isfile(joinpath(@__DIR__, "local.jl")) && include("local.jl")
 using Revise
