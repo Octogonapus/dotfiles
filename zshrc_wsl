@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 extract_email_html() {
   "$HOME/bin/extract_email_html.sh" --wsl --out /mnt/c/Users/salmon/AppData/Local/Temp/tmp-email.html --browser /mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe "$@"

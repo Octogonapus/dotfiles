@@ -58,4 +58,7 @@
     ~/.agent-bridge.sh: agent-bridge.sh
 
     # other scripts
-    ~/bin/extract_email_html.sh: extract_email_html.sh
+    ~/bin/git_grep_binary_search.sh: git_grep_binary_search.sh
+    ~/bin/extract_email_html.sh:
+      path: extract_email_html.sh
+      if: "[[ `uname -r` == *WSL* ]]"

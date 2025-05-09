@@ -216,6 +216,7 @@ gmb() {
 
 # git diff
 alias gd="git diff"
+alias gdc="git diff --cached"
 alias gdh="git diff HEAD^..HEAD"
 alias gdim="git diff-image"
 alias gdsm="git diff --submodule=diff"
@@ -337,6 +338,10 @@ bump_pr() {
     
     cd - || return 1
     rm -rf "$dir" || return 1
+}
+
+git_grep_binary_search() {
+  "$HOME/bin/git_grep_binary_search.sh" "$@"
 }
 
 # pnpm
