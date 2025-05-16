@@ -163,6 +163,16 @@ export AVR_BIN_DIR=$HOME/avr8-gnu-toolchain-linux_x86_64/bin/
 
 complete -C aws_completer aws
 
+aws_docker_login() {
+  local ACCOUNT_ID="$1"
+  local REGION="${2:-us-east-2}"
+  if [[ -z "$ACCOUNT_ID" ]]; then
+    echo "Usage: aws_docker_login <account ID> <region (optional)>"
+    return
+  fi
+  aws --profile "AWSAdministratorAccess-$ACCOUNT_ID" ecr get-login-password --region "$REGION" | docker login --username AWS --password-stdin "$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com"
+}
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/salmon/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
