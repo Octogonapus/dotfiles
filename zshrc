@@ -350,10 +350,6 @@ bump_pr() {
     rm -rf "$dir" || return 1
 }
 
-git_grep_binary_search() {
-  "$HOME/bin/git_grep_binary_search.sh" "$@"
-}
-
 # pnpm
 export PNPM_HOME="/home/salmon/.local/share/pnpm"
 case ":$PATH:" in
@@ -380,6 +376,7 @@ alias px="pnpx"
 alias pxu="pnpx npm-check -u"
 alias pb="pnpm run build"
 alias pd="pnpm run dev"
+alias pt="pnpm run tauri"
 
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
