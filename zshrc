@@ -301,7 +301,7 @@ alias dcd="docker compose down"
 alias dcl="docker compose logs -f -n 10"
 
 kill_all_docker_containers() {
-    ids=$(docker ps -q)
+    ids=($(docker ps -q))
     for id in $ids; do
         docker kill "$id"
     done
