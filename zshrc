@@ -384,6 +384,7 @@ alias pxu="pnpx npm-check -u"
 alias pb="pnpm run build"
 alias pd="pnpm run dev"
 alias pt="pnpm run tauri"
+alias pi="pnpm install"
 
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
