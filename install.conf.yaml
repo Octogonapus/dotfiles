@@ -29,6 +29,7 @@
     # git
     ~/.gitconfig: gitconfig
     ~/.gitattributes: gitattributes
+    ~/.git_editor.sh: git_editor.sh
 
     # github CLI
     ~/.config/gh/config.yml:
