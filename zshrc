@@ -249,6 +249,7 @@ gfuh() {
 # github cli
 alias gprw="gh pr view --web"
 alias grw="gh repo view -w"
+alias gpc="gh pr create --assignee Octogonapus"
 gprl() {
 	echo "$(gh pr view --json url --jq .url)"
 }
