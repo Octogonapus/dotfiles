@@ -387,6 +387,8 @@ alias pd="pnpm run dev"
 alias pt="pnpm run tauri"
 alias pi="pnpm install"
 
+export RUST_BACKTRACE=1
+
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
 
