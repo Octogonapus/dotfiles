@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+[[ -f "$HOME/.agent-bridge.sh" ]] && source "$HOME/.agent-bridge.sh"
+
+restart_agent_bridge() {
+    PID=$(ps -auxww | grep "[n]piperelay.exe -ei -s //./pipe/openssh-ssh-agent" | awk '{print $2}')
+    if [ ! -z "$PID" ]; then
+        kill -9 "$PID"
+    fi
+    source "$HOME/.agent-bridge.sh"
+}
+
 extract_email_html() {
   "$HOME/bin/extract_email_html.sh" --wsl --out /mnt/c/Users/salmon/AppData/Local/Temp/tmp-email.html --browser /mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe "$@"
 }

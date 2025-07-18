@@ -287,16 +287,6 @@ export PATH="$HOME/go/bin:$PATH"
 
 export PATH="$HOME/bin:$PATH"
 
-[[ -f "$HOME/.agent-bridge.sh" ]] && source "$HOME/.agent-bridge.sh"
-
-restart_agent_bridge() {
-    PID=$(ps -auxww | grep "[n]piperelay.exe -ei -s //./pipe/openssh-ssh-agent" | awk '{print $2}')
-    if [ ! -z "$PID" ]; then
-        kill -9 "$PID"
-    fi
-    source "$HOME/.agent-bridge.sh"
-}
-
 alias dc="docker compose"
 alias dcd="docker compose down"
 alias dcl="docker compose logs -f -n 10"
