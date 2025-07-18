@@ -20,6 +20,9 @@
 - link:
     # bash. i don't really use it but sometimes you need it
     ~/.bash_aliases: bash_aliases
+    ~/.bash_aliases_wsl:
+      path: bash_aliases_wsl
+      if: "[[ `uname -r` == *WSL* ]]"
     ~/.bash_profile: bash_profile
     ~/.bashrc: bashrc
 

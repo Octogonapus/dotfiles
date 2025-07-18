@@ -9,10 +9,6 @@ alias grbc='git rebase --continue'
 alias gmc="git merge --continue"
 alias gll='git log --graph --pretty=oneline --abbrev-commit'
 
-# things to make WSL work
-alias ssh='ssh.exe'
-alias ssh-add='ssh-add.exe'
-
 alias python='python3'
 
 extract() {
@@ -35,3 +31,6 @@ extract() {
         echo "'$1' is not a valid file!"
     fi
 }
+
+# platform-specific
+[[ -f "$HOME/.bash_aliases_wsl" ]] && source "$HOME/.bash_aliases_wsl"
