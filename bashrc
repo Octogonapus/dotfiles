@@ -130,11 +130,11 @@ export NVM_DIR="$HOME/.nvm"
 # !! Contents within this block are managed by juliaup !!
 
 case ":$PATH:" in
-    *:/home/salmon/.juliaup/bin:*)
+    *:$HOME/.juliaup/bin:*)
         ;;
 
     *)
-        export PATH=/home/salmon/.juliaup/bin${PATH:+:${PATH}}
+        export PATH=$HOME/.juliaup/bin${PATH:+:${PATH}}
         ;;
 esac
 
