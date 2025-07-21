@@ -8,6 +8,7 @@
     - [git submodule update --init --recursive, Installing submodules]
     - [mkdir -p ~/bin]
     - [mkdir -p ~/.julia/config]
+    - [mkdir -p ~/.gitconfig_local]
     - [
         '[[ `uname -r` == *WSL* && ! -e $HOME/.local/bin/code ]] && ln -s /mnt/c/Program\ Files/Microsoft\ VS\ Code/bin/code $HOME/.local/bin/code || true',
         Link VS Code into WSL,
@@ -30,9 +31,15 @@
     ~/.gdbinit: gdbinit
 
     # git
-    ~/.gitconfig: gitconfig
     ~/.gitattributes: gitattributes
     ~/.git_editor.sh: git_editor.sh
+    ~/.gitconfig: gitconfig
+    ~/.gitconfig_local/wsl.inc:
+      path: wsl.inc
+      if: "[[ `uname -r` == *WSL* ]]"
+    ~/.gitconfig_local/linux.inc:
+      path: linux.inc
+      if: "[[ `uname -r` != *WSL* ]]"
 
     # github CLI
     ~/.config/gh/config.yml:

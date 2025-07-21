@@ -55,9 +55,6 @@
 [gpg]
 	format = ssh
 
-[gpg "ssh"]
-	program = "/mnt/c/Users/salmon/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
-
 [commit]
 	gpgsign = true
 
@@ -86,3 +83,6 @@
 	directory = /home/salmon/git/bcc/libbpf-tools/blazesym
 	directory = /home/salmon/git/bcc/src/cc/libbpf
 	directory = /home/salmon/git/bcc/libbpf-tools/bpftool
+
+[include]
+	path = .gitconfig_local/wsl.inc
