@@ -385,4 +385,8 @@ export SSH_AUTH_SOCK=$HOME/.1password/agent.sock
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
 
 # zshrc_local must come last
-[[ -f "$HOME/.zshrc_local" ]] && source "$HOME/.zshrc_local"
+if [[ -f "$HOME/.zshrc_local" ]]; then
+  source "$HOME/.zshrc_local"
+else
+  echo "$HOME/.zshrc_local does not exist! You probably forgot to install it manually."
+fi
