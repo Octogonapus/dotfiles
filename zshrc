@@ -379,6 +379,8 @@ alias pi="pnpm install"
 
 export RUST_BACKTRACE=1
 
+export SSH_AUTH_SOCK=$HOME/.1password/agent.sock
+
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
 
