@@ -377,6 +377,10 @@ alias pd="pnpm run dev"
 alias pt="pnpm run tauri"
 alias pi="pnpm install"
 
+alias tssh="tailscale ssh"
+alias tst="tailscale status"
+alias tping="tailscale ping"
+
 export RUST_BACKTRACE=1
 
 export SSH_AUTH_SOCK=$HOME/.1password/agent.sock
