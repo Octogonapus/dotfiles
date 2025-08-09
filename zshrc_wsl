@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+alias op=op.exe
+
 [[ -f "$HOME/.agent-bridge.sh" ]] && source "$HOME/.agent-bridge.sh"
 
 restart_agent_bridge() {
