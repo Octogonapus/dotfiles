@@ -247,9 +247,10 @@ gfuh() {
 }
 
 # github cli
-alias gprw="gh pr view --web"
+alias gpw="gh pr view --web"
 alias grw="gh repo view -w"
 alias gpc="gh pr create --assignee Octogonapus"
+alias gpm="gh pr merge --squash --delete-branch"
 gprl() {
 	echo "$(gh pr view --json url --jq .url)"
 }
@@ -276,6 +277,11 @@ gb() {
 	fi
 }
 compdef _git gb=git-branch
+
+gmo() {
+	git merge "origin/$1"
+}
+compdef _git gmo=git-merge
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -312,6 +318,7 @@ julia_manifest() {
 	while [[ "$dir" != '/' ]]; do
 		if [[ -f "$dir/Manifest.toml" ]]; then
 			JULIA_VER=$(grep julia_version "$dir/Manifest.toml" | cut -d'=' -f2 | xargs)
+			echo "using: $dir/Manifest.toml"
 			break
 		fi
 		dir=$(dirname "$dir")
@@ -394,3 +401,4 @@ if [[ -f "$HOME/.zshrc_local" ]]; then
 else
   echo "$HOME/.zshrc_local does not exist! You probably forgot to install it manually."
 fi
+export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
