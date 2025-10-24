@@ -389,8 +389,10 @@ alias tst="tailscale status"
 alias tping="tailscale ping"
 
 export RUST_BACKTRACE=1
-
 export SSH_AUTH_SOCK=$HOME/.1password/agent.sock
+export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+
+. "$HOME/.asdf/asdf.sh"
 
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
@@ -401,4 +403,3 @@ if [[ -f "$HOME/.zshrc_local" ]]; then
 else
   echo "$HOME/.zshrc_local does not exist! You probably forgot to install it manually."
 fi
-export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
