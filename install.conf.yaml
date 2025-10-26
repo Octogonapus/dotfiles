@@ -17,6 +17,10 @@
         "[[ `uname -r` == *WSL* ]] && mkdir -p $HOME/.1password",
         Set up 1Password socket directory,
       ]
+    - [
+        '[ -n "$ASDF_DATA_DIR" ] && [ -d "$ASDF_DATA_DIR" ] && [ ! -f "$ASDF_DATA_DIR/completions/_asdf" ] && mkdir -p "$ASDF_DATA_DIR/completions" && asdf completion zsh > "$ASDF_DATA_DIR/completions/_asdf" || true',
+        Install asdf completions,
+      ]
 
 - link:
     # bash. i don't really use it but sometimes you need it
@@ -67,6 +71,9 @@
 
     # wsl
     ~/.agent-bridge.sh: agent-bridge.sh
+
+    # asdf
+    ~/.tool-versions: asdf-tool-versions
 
     # other scripts
     ~/bin/extract_email_html.sh:

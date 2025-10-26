@@ -116,7 +116,6 @@ fpath=($fpath ~/.zsh/completion)
 
 ulimit -c unlimited
 
-autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -197,10 +196,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-12.1/lib64/
 export NIXPKGS_ALLOW_UNFREE=1
 
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
-
-# gvm doesn't play nice with direnv
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-GOTRACEBACK=crash
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
@@ -392,7 +387,13 @@ export RUST_BACKTRACE=1
 export SSH_AUTH_SOCK=$HOME/.1password/agent.sock
 export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
 
-. "$HOME/.asdf/asdf.sh"
+export ASDF_DATA_DIR="$HOME/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath) # before compinit
+# asdf scripts must be sourced after setting PATH and after sourcing oh-my-zsh.sh
+[[ -f "${ASDF_DATA_DIR}/plugins/golang/set-env.zsh" ]] && source "${ASDF_DATA_DIR}/plugins/golang/set-env.zsh"
+
+autoload -Uz compinit && compinit
 
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
