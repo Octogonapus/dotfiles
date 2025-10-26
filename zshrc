@@ -395,6 +395,8 @@ fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath) # before compinit
 
 autoload -Uz compinit && compinit
 
+export ANSIBLE_NOCOWS=1
+
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
 
