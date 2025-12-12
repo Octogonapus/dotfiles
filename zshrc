@@ -393,6 +393,13 @@ fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath) # before compinit
 # asdf scripts must be sourced after setting PATH and after sourcing oh-my-zsh.sh
 [[ -f "${ASDF_DATA_DIR}/plugins/golang/set-env.zsh" ]] && source "${ASDF_DATA_DIR}/plugins/golang/set-env.zsh"
 
+unshare_net() {
+	local dir cmd_string
+	dir=$(pwd)
+	cmd_string=$(printf '%q ' "$@")
+	sudo unshare --net --fork su - "$USER" -c "cd $(printf '%q' "$dir") && $cmd_string"
+}
+
 autoload -Uz compinit && compinit
 
 export ANSIBLE_NOCOWS=1
@@ -406,3 +413,6 @@ if [[ -f "$HOME/.zshrc_local" ]]; then
 else
   echo "$HOME/.zshrc_local does not exist! You probably forgot to install it manually."
 fi
+
+
+source ~/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization script
