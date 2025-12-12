@@ -5,6 +5,7 @@
 	packedGitLimit = 512m
 	packedGitWindowSize = 512m
 	attributesfile = ~/.gitattributes
+	hooksPath = ~/.git-hooks
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
