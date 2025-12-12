@@ -414,5 +414,4 @@ else
   echo "$HOME/.zshrc_local does not exist! You probably forgot to install it manually."
 fi
 
-
-source ~/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization script
+[[ -f "$HOME/.safe-chain/scripts/init-posix.sh" ]] && source "$HOME/.safe-chain/scripts/init-posix.sh"

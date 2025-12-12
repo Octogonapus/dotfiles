@@ -144,3 +144,5 @@ esac
 export PATH="$PATH:$HOME/.rvm/bin"
 
 [[ -s "/home/salmon/.gvm/scripts/gvm" ]] && source "/home/salmon/.gvm/scripts/gvm"
+
+[[ -f "$HOME/.safe-chain/scripts/init-posix.sh" ]] && source "$HOME/.safe-chain/scripts/init-posix.sh"
