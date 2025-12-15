@@ -77,6 +77,9 @@
     # asdf
     ~/.tool-versions: asdf-tool-versions
 
+    # npm
+    ~/.npmrc: npmrc
+
     # other scripts
     ~/bin/extract_email_html.sh:
       path: extract_email_html.sh
