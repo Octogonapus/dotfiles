@@ -80,6 +80,9 @@
     # npm
     ~/.npmrc: npmrc
 
+    # pnpm
+    ~/.config/pnpm/rc: pnpmrc
+
     # other scripts
     ~/bin/extract_email_html.sh:
       path: extract_email_html.sh
