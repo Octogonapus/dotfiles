@@ -44,6 +44,8 @@
     ~/.gitconfig_local/linux.inc:
       path: linux.inc
       if: "[[ `uname -r` != *WSL* ]]"
+    ~/.git-hooks:
+      path: git-hooks
 
     # github CLI
     ~/.config/gh/config.yml:
