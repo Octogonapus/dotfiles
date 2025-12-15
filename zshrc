@@ -222,7 +222,7 @@ gmb() {
 # git diff
 alias gd="git diff"
 alias gdc="git diff --cached"
-alias gdh="git diff HEAD^..HEAD"
+alias gdh="git diff HEAD\^..HEAD"
 alias gdim="git diff-image"
 alias gdsm="git diff --submodule=diff"
 gdm() {
