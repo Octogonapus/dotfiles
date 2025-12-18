@@ -228,6 +228,9 @@ alias gdsm="git diff --submodule=diff"
 gdm() {
 	git diff "$(git_main_branch)"..HEAD
 }
+gdcm() {
+	git diff "$1^..$1"
+}
 
 # git commit
 alias gcan="git commit -v -a --no-edit --amend"
