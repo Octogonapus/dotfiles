@@ -407,6 +407,8 @@ autoload -Uz compinit && compinit
 
 export ANSIBLE_NOCOWS=1
 
+alias ccf="cargo clippy --fix"
+
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
 
