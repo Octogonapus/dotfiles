@@ -244,6 +244,13 @@ gfuh() {
 	git commit -a --fixup HEAD
 }
 
+gfui() {
+  local commit=$(git log --oneline -n 50 | fzf --height=40% --reverse --no-sort --preview 'git show --stat --color=always {1}')
+  if [[ -n "$commit" ]]; then
+    git commit -a --fixup "$(echo "$commit" | awk '{print $1}')"
+  fi
+}
+
 # github cli
 alias gpw="gh pr view --web"
 alias grw="gh repo view -w"
