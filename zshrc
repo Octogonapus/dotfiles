@@ -11,8 +11,8 @@ print_docker_uptime() {
   local yellow='\033[1;33m'
   local reset='\033[0m'
 
-  docker ps --format '{{.ID}} {{.Names}} {{.RunningFor}}' | while read -r id name running_for; do
-    start_time=$(docker inspect -f '{{.State.StartedAt}}' "$id")
+  timeout 3 docker ps --format '{{.ID}} {{.Names}} {{.RunningFor}}' | while read -r id name running_for; do
+    start_time=$(timeout 3 docker inspect -f '{{.State.StartedAt}}' "$id")
     start_timestamp=$(date -d "$start_time" +%s)
     uptime_seconds=$(( now - start_timestamp ))
 
@@ -415,6 +415,8 @@ autoload -Uz compinit && compinit
 export ANSIBLE_NOCOWS=1
 
 alias ccf="cargo clippy --fix"
+
+export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
