@@ -9,12 +9,13 @@
     - [mkdir -p ~/bin]
     - [mkdir -p ~/.julia/config]
     - [mkdir -p ~/.gitconfig_local]
+    - [mkdir -p ~/.config/pnpm]
     - [
         '[[ `uname -r` == *WSL* && ! -e $HOME/.local/bin/code ]] && ln -s /mnt/c/Program\ Files/Microsoft\ VS\ Code/bin/code $HOME/.local/bin/code || true',
         Link VS Code into WSL,
       ]
     - [
-        "[[ `uname -r` == *WSL* ]] && mkdir -p $HOME/.1password",
+        "[[ `uname -r` == *WSL* ]] && mkdir -p $HOME/.1password || true",
         Set up 1Password socket directory,
       ]
     - [
