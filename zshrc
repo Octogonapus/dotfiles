@@ -256,6 +256,7 @@ alias gpw="gh pr view --web"
 alias grw="gh repo view -w"
 alias gpc="gh pr create --assignee Octogonapus"
 alias gpm="gh pr merge --squash --delete-branch"
+alias gps="gh pr view --json title,number,state,url,mergeable,mergeStateStatus --jq '{title,number,state,url,mergeable,mergeStateStatus}'"
 gprl() {
 	echo "$(gh pr view --json url --jq .url)"
 }
@@ -360,6 +361,21 @@ bump_pr() {
     rm -rf "$dir" || return 1
 }
 
+pull_all_git_repos_in_pwd() {
+  setopt local_options null_glob
+  for dir in */; do
+    [[ -d "$dir" ]] || continue
+    if [[ -d "$dir/.git" ]]; then
+      echo "----"
+      echo "Updating $dir"
+      (
+        cd "$dir" || exit 1
+        git pull --ff-only
+      )
+    fi
+  done
+}
+
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
@@ -389,7 +405,15 @@ alias pd="pnpm run dev"
 alias pt="pnpm run tauri"
 alias pi="pnpm install"
 
-alias tssh="tailscale ssh"
+tssh() {
+  if [[ "$1" == *"internal.irrational.engineering"* ]]; then
+    local yellow='\033[1;33m'
+    local reset='\033[0m'
+    echo -e "${yellow}Warning: you probably meant to use ssh not tssh${reset}"
+    tailscale ssh "$1"
+  fi
+  tailscale ssh "$1"
+}
 alias tst="tailscale status"
 alias tping="tailscale ping"
 
