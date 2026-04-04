@@ -1,3 +1,2 @@
-minimum-release-age=4320
-#minimum-release-age=0
+#minimum-release-age=3d
 ignore-scripts=true

@@ -1,3 +1,5 @@
+#zmodload zsh/zprof
+
 # Put anything that outputs up here, above the p10k instant prompt to avoid a big warning message that it prints
 
 # because I always forget to tear down my docker compose environments
@@ -226,7 +228,10 @@ alias gdh="git diff HEAD\^..HEAD"
 alias gdim="git diff-image"
 alias gdsm="git diff --submodule=diff"
 gdm() {
-	git diff "$(git_main_branch)"..HEAD
+	git diff "$(git_main_branch)"..HEAD "$@"
+}
+gdms() {
+	git diff "$(git_main_branch)"..HEAD --stat "$@"
 }
 gdcm() {
 	git diff "$1^..$1"
@@ -363,17 +368,27 @@ bump_pr() {
 
 pull_all_git_repos_in_pwd() {
   setopt local_options null_glob
+
+  max_jobs=3
+
   for dir in */; do
-    [[ -d "$dir" ]] || continue
-    if [[ -d "$dir/.git" ]]; then
-      echo "----"
-      echo "Updating $dir"
-      (
-        cd "$dir" || exit 1
-        git pull --ff-only
-      )
-    fi
+    [[ -d "$dir/.git" ]] || continue
+
+    # throttle BEFORE starting a new job
+    while (( $(jobs -p | wc -l) >= max_jobs )); do
+      sleep 0.2
+    done
+
+    echo "----"
+    echo "Updating $dir"
+
+    (
+      cd "$dir" || exit 1
+      git pull --ff-only
+    ) &
   done
+
+  wait
 }
 
 # pnpm
@@ -404,15 +419,16 @@ alias pb="pnpm run build"
 alias pd="pnpm run dev"
 alias pt="pnpm run tauri"
 alias pi="pnpm install"
+alias pa="pnpm audit"
 
 tssh() {
   if [[ "$1" == *"internal.irrational.engineering"* ]]; then
     local yellow='\033[1;33m'
     local reset='\033[0m'
     echo -e "${yellow}Warning: you probably meant to use ssh not tssh${reset}"
-    tailscale ssh "$1"
+    tailscale ssh "$@"
   fi
-  tailscale ssh "$1"
+  tailscale ssh "$@"
 }
 alias tst="tailscale status"
 alias tping="tailscale ping"
@@ -453,3 +469,5 @@ else
 fi
 
 [[ -f "$HOME/.safe-chain/scripts/init-posix.sh" ]] && source "$HOME/.safe-chain/scripts/init-posix.sh"
+
+#zprof
