@@ -174,6 +174,45 @@ aws_docker_login() {
   aws --profile "AWSAdministratorAccess-$ACCOUNT_ID" ecr get-login-password --region "$REGION" | docker login --username AWS --password-stdin "$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com"
 }
 
+aws_assume_role() {
+  local ROLE_ARN="$1"
+  local SESSION_NAME="$2"
+  local DURATION_SECONDS="${3:-3600}"
+  if [[ -z "$ROLE_ARN" || -z "$SESSION_NAME" ]]; then
+    echo "Usage: aws_assume_role <role ARN> <session name> [duration seconds]"
+    return 1
+  fi
+
+  local CREDS AK SK ST EXP
+  CREDS="$(aws sts assume-role \
+    --role-arn "$ROLE_ARN" \
+    --role-session-name "$SESSION_NAME" \
+    --duration-seconds "$DURATION_SECONDS" \
+    --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken,Expiration]' \
+    --output text)" || return $?
+
+  read -r AK SK ST EXP <<< "$CREDS"
+  if [[ -z "$AK" || -z "$SK" || -z "$ST" ]]; then
+    echo "Failed to parse credentials from sts assume-role output"
+    return 1
+  fi
+
+  export AWS_ACCESS_KEY_ID="$AK"
+  export AWS_SECRET_ACCESS_KEY="$SK"
+  export AWS_SESSION_TOKEN="$ST"
+  export AWS_SECURITY_TOKEN="$ST"
+  export AWS_ASSUMED_ROLE_ARN="$ROLE_ARN"
+  export AWS_ASSUMED_ROLE_SESSION_NAME="$SESSION_NAME"
+  export AWS_ASSUMED_ROLE_EXPIRATION="$EXP"
+
+  echo "Assumed role; expires at $EXP"
+}
+
+aws_unset_role() {
+  unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_SECURITY_TOKEN
+  unset AWS_ASSUMED_ROLE_ARN AWS_ASSUMED_ROLE_SESSION_NAME AWS_ASSUMED_ROLE_EXPIRATION
+}
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$("$HOME/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
