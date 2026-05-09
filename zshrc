@@ -295,6 +295,51 @@ gfui() {
   fi
 }
 
+grevi() {
+  # Capture fzf only after it exits (don't pipe fzf into read via < <(...) — TTY deadlock).
+  local selection
+  selection=$(git log --oneline -n 50 | fzf --multi --height=40% --reverse --no-sort --preview 'git show --stat --color=always {1}')
+  [[ -z "$selection" ]] && return 0
+
+  local -aU hashes
+  hashes=()
+  local short
+  # First column is the abbreviated SHA for each pick line (newline-separated from fzf).
+  while IFS= read -r short || [[ -n "$short" ]]; do
+    [[ -z "$short" ]] && continue
+    short="${short//$'\r'/}"
+    hashes+=("$short")
+  done < <(print -r -- "$selection" | awk 'NF { print $1 }')
+
+  # If everything landed on one line: space-separated hex SHAs only (no subjects). Otherwise git gets one bad "revision".
+  if [[ ${#hashes[@]} -eq 1 && "$hashes[1]" == *[[:space:]]* ]]; then
+    local cand="$hashes[1]" w all_hex=1
+    for w in ${=cand}; do
+      [[ "$w" =~ ^[0-9a-f]{7,40}$ ]] || all_hex=0
+    done
+    if [[ $all_hex -eq 1 ]]; then
+      hashes=(${=cand})
+    fi
+  fi
+
+  [[ ${#hashes[@]} -eq 0 ]] && return 0
+
+  # Newest first; one full SHA per line (read — not ${(f)$( )}, which can leave one space-joined word).
+  local -a sorted_full
+  sorted_full=()
+  local fullhash
+  while IFS= read -r fullhash || [[ -n "$fullhash" ]]; do
+    [[ -z "$fullhash" ]] && continue
+    sorted_full+=("$fullhash")
+  done < <(for x in "${hashes[@]}"; do git log -1 --format='%ct %H' "$x"; done | sort -rn | awk '{ print $NF }')
+
+  local h
+  for h in "${sorted_full[@]}"; do
+    [[ -z "$h" ]] && continue
+    git revert --no-edit "$h" || return 1
+  done
+}
+
 # github cli
 alias gpw="gh pr view --web"
 alias grw="gh repo view -w"
@@ -496,6 +541,14 @@ export ANSIBLE_NOCOWS=1
 alias ccf="cargo clippy --fix"
 
 export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
+
+rec_sed() {
+	[ "$#" -ne 3 ] && {
+		echo "Usage: rec_sed <dir> <pattern> <replacement>" >&2
+		return 1
+	}
+	find "$1" -type f -print0 | xargs -0 sed -i "s/$2/$3/g"
+}
 
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
