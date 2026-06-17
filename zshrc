@@ -525,6 +525,21 @@ tssh() {
   fi
   tailscale ssh "$@"
 }
+
+# Tab-complete the hostname part of `tssh user@host` from `tailscale status`.
+# zsh handles the rest natively: a single match is filled in, multiple matches
+# get the longest common prefix filled in plus an interactive selection menu.
+_tssh() {
+  local -a hosts
+  hosts=(${(f)"$(tailscale status --json 2>/dev/null | jq -r '(.Self, (.Peer[]?)) | .DNSName // empty | split(".")[0]' 2>/dev/null)"})
+  (( ${#hosts} )) || return 1
+  compset -P '*@'   # treat the user@ prefix as already typed, complete the host
+  compadd -- $hosts
+}
+compdef _tssh tssh
+# match the typed text anywhere in the hostname, case-insensitively
+zstyle ':completion:*:*:tssh:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*'
+zstyle ':completion:*:*:tssh:*' menu select
 tst() {
   if [[ -z "$1" ]]; then
     tailscale status
