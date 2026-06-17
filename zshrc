@@ -259,6 +259,15 @@ gpum() {
 gmb() {
 	git merge-base HEAD "$(git_main_branch)"
 }
+unalias gta
+gta() {
+	git tag -sa "$@"
+}
+gtam() {
+	local tag="$1"
+	shift
+	git tag -sa "$tag" -m "$tag" "$@"
+}
 
 # git diff
 alias gd="git diff"
@@ -403,8 +412,10 @@ kill_all_docker_containers() {
 
 # !! Contents within this block are managed by juliaup !!
 
-path=("$HOME/.juliaup/bin" $path)
+path=('/home/salmon/.juliaup/bin' $path)
 export PATH
+# Tab completion for juliaup and julia channel selection
+[ -f "/home/salmon/.julia/juliaup/completions/zsh.zsh" ] && source "/home/salmon/.julia/juliaup/completions/zsh.zsh"
 
 # <<< juliaup initialize <<<
 
@@ -514,7 +525,13 @@ tssh() {
   fi
   tailscale ssh "$@"
 }
-alias tst="tailscale status"
+tst() {
+  if [[ -z "$1" ]]; then
+    tailscale status
+  else
+    tailscale status | grep "$1"
+  fi
+}
 alias tping="tailscale ping"
 
 export RUST_BACKTRACE=1
@@ -549,6 +566,8 @@ rec_sed() {
 	}
 	find "$1" -type f -print0 | xargs -0 sed -i "s/$2/$3/g"
 }
+
+alias diga="dig -t ANY"
 
 # platform-specific
 [[ -f "$HOME/.zshrc_wsl" ]] && source "$HOME/.zshrc_wsl"
