@@ -530,11 +530,25 @@ tssh() {
 # zsh handles the rest natively: a single match is filled in, multiple matches
 # get the longest common prefix filled in plus an interactive selection menu.
 _tssh() {
-  local -a hosts
-  hosts=(${(f)"$(tailscale status --json 2>/dev/null | jq -r '(.Self, (.Peer[]?)) | .DNSName // empty | split(".")[0]' 2>/dev/null)"})
+  local name online expl
+  local -a hosts colors
+  while IFS=$'\t' read -r name online; do
+    [[ -z "$name" ]] && continue
+    hosts+=("$name")
+    # offline hosts get bold-red coloring in the completion listing
+    [[ "$online" != "true" ]] && colors+=("=${name}=01;31")
+  done < <(tailscale status --json 2>/dev/null \
+    | jq -r '(.Self, (.Peer[]?)) | select(.DNSName != null and .DNSName != "") | "\(.DNSName | split(".")[0])\t\(.Online)"' 2>/dev/null)
   (( ${#hosts} )) || return 1
+  # list-colors is looked up per match tag, so the matches must carry a tag
+  # (added via _wanted) for this command-scoped style to take effect.
+  if (( ${#colors} )); then
+    zstyle ':completion:*:*:tssh:*' list-colors "${colors[@]}"
+  else
+    zstyle -d ':completion:*:*:tssh:*' list-colors
+  fi
   compset -P '*@'   # treat the user@ prefix as already typed, complete the host
-  compadd -- $hosts
+  _wanted hosts expl host compadd -a hosts
 }
 compdef _tssh tssh
 # match the typed text anywhere in the hostname, case-insensitively
