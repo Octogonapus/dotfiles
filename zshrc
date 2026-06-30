@@ -115,6 +115,18 @@ plugins=(
 
 # eksctl completions and others. must go before compinit!
 fpath=($fpath ~/.zsh/completion)
+export ASDF_DATA_DIR="$HOME/.asdf"
+fpath=(${ASDF_DATA_DIR}/completions $fpath)
+
+if command -v kubectl > /dev/null; then
+  _kubectl_comp="${ZSH_CACHE_DIR:-$HOME/.oh-my-zsh/cache}/completions/_kubectl"
+  if [[ ! -f "$_kubectl_comp" ]]; then
+    mkdir -p "${_kubectl_comp:h}"
+    kubectl completion zsh >|"$_kubectl_comp"
+  fi
+  fpath=("${_kubectl_comp:h}" $fpath)
+  unset _kubectl_comp
+fi
 
 ulimit -c unlimited
 
@@ -146,7 +158,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias k="kubectl"
-command -v kubectl > /dev/null && source <(kubectl completion zsh)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -569,7 +580,6 @@ export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
 
 export ASDF_DATA_DIR="$HOME/.asdf"
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
-fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath) # before compinit
 # asdf scripts must be sourced after setting PATH and after sourcing oh-my-zsh.sh
 [[ -f "${ASDF_DATA_DIR}/plugins/golang/set-env.zsh" ]] && source "${ASDF_DATA_DIR}/plugins/golang/set-env.zsh"
 
@@ -579,8 +589,6 @@ unshare_net() {
 	cmd_string=$(printf '%q ' "$@")
 	sudo unshare --net --fork su - "$USER" -c "cd $(printf '%q' "$dir") && $cmd_string"
 }
-
-autoload -Uz compinit && compinit
 
 export ANSIBLE_NOCOWS=1
 
