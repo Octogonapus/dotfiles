@@ -619,3 +619,6 @@ fi
 [[ -f "$HOME/.safe-chain/scripts/init-posix.sh" ]] && source "$HOME/.safe-chain/scripts/init-posix.sh"
 
 #zprof
+
+# opencode
+export PATH=/home/salmon/.opencode/bin:$PATH
