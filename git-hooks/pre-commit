@@ -3,3 +3,7 @@ set -e
 
 /home/salmon/git/dotfiles/aikido_pre_commit.sh
 /home/salmon/git/dotfiles/check_git_permissions_match.sh
+
+if [ -f .pre-commit-config.yaml ] && command -v pre-commit >/dev/null 2>&1; then
+  pre-commit run --hook-stage pre-commit
+fi
