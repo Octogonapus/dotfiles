@@ -638,3 +638,28 @@ fi
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# stm32
+[[ -f /etc/profile.d/cubeclt-bin-path_1.22.0.sh ]] && source /etc/profile.d/cubeclt-bin-path_1.22.0.sh
+
+stlink-permit() {
+    local usb_path
+
+    usb_path=$(
+        lsusb | awk '
+            /ST-LINK|STLINK/ {
+                gsub(":", "", $4)
+                printf "/dev/bus/usb/%s/%03d\n", $2, $4
+                exit
+            }
+        '
+    )
+
+    if [[ -z "$usb_path" ]]; then
+        printf 'ST-Link device not found\n' >&2
+        return 1
+    fi
+
+    sudo setfacl -m "u:$(id -un):rw" "$usb_path"
+    printf 'Permitted %s\n' "$usb_path"
+}
