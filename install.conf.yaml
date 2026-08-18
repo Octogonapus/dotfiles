@@ -73,7 +73,9 @@
     ~/.julia/config/startup.jl: julia/startup.jl
 
     # wsl
-    ~/.agent-bridge.sh: agent-bridge.sh
+    ~/.agent-bridge.sh:
+      path: agent-bridge.sh
+      if: "[[ `uname -r` == *WSL* ]]"
 
     # asdf
     ~/.tool-versions: asdf-tool-versions
