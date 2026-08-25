@@ -279,6 +279,42 @@ gtam() {
 	shift
 	git tag -sa "$tag" -m "$tag" "$@"
 }
+gppr() {
+    local branch remote url
+
+    branch="$(git branch --show-current)" || return 1
+    if [[ -z "$branch" ]]; then
+        echo "Error: HEAD is detached." >&2
+        return 1
+    fi
+
+    remote="$(git config --get "branch.$branch.remote")"
+    if [[ -z "$remote" ]]; then
+        echo "Error: no remote configured for branch '$branch'." >&2
+        return 1
+    fi
+
+    url="$(git remote get-url "$remote")" || {
+        echo "Error: remote '$remote' does not exist." >&2
+        return 1
+    }
+
+    echo "About to push:"
+    echo "  Remote: $remote ($url)"
+    echo "  Branch: $branch"
+    echo "  Source: HEAD"
+    echo "  Destination: $remote:$branch"
+    echo "  Hooks: disabled (--no-verify)"
+    echo
+
+    read -r "answer?Continue? [y/N] "
+    [[ "$answer" =~ ^[Yy]$ ]] || {
+        echo "Push cancelled."
+        return 1
+    }
+
+    git push --no-verify "$remote" "HEAD:$branch"
+}
 
 # git diff
 alias gd="git diff"
