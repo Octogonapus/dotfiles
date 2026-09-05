@@ -86,6 +86,9 @@
     # pnpm
     ~/.config/pnpm/rc: pnpmrc
 
+    # dcg
+    ~/.config/dcg/config.toml: dcg-config.toml
+
     # other scripts
     ~/bin/extract_email_html.sh:
       path: extract_email_html.sh
