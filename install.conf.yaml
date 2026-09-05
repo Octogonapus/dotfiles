@@ -10,6 +10,7 @@
     - [mkdir -p ~/.julia/config]
     - [mkdir -p ~/.gitconfig_local]
     - [mkdir -p ~/.config/pnpm]
+    - [mkdir -p ~/.config/dcg]
     - [
         '[[ `uname -r` == *WSL* && ! -e $HOME/.local/bin/code ]] && ln -s /mnt/c/Program\ Files/Microsoft\ VS\ Code/bin/code $HOME/.local/bin/code || true',
         Link VS Code into WSL,
