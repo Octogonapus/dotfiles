@@ -17,4 +17,4 @@ while [ "$pid" -ne 1 ]; do
     pid=$parent
 done
 
-exec code --wait "$@"
+exec nano "$@"
