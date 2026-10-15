@@ -611,7 +611,7 @@ tst() {
 alias tping="tailscale ping"
 
 export RUST_BACKTRACE=1
-[[ -f "$HOME/.1password/agent.sock" ]] && export SSH_AUTH_SOCK=$HOME/.1password/agent.sock
+[[ -S "$HOME/.1password/agent.sock" ]] && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
 export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
 
 export ASDF_DATA_DIR="$HOME/.asdf"
